@@ -9,11 +9,9 @@ FFortAthenaLoadout* AFortPlayerPawn::GetCosmeticLoadout()
 {
 	static auto CosmeticLoadoutOffset = GetOffset("CosmeticLoadout", false);
 
-	if (CosmeticLoadoutOffset == -1)
-		CosmeticLoadoutOffset = GetOffset("CustomizationLoadout");
+	if (CosmeticLoadoutOffset == -1) CosmeticLoadoutOffset = GetOffset("CustomizationLoadout");
 
-	if (CosmeticLoadoutOffset == -1)
-		return nullptr;
+	if (CosmeticLoadoutOffset == -1) return nullptr;
 
 	return GetPtr<FFortAthenaLoadout>(CosmeticLoadoutOffset);
 }
@@ -22,8 +20,7 @@ bool DBNOCheck(AFortPlayerPawn* Pawn, AController* EventInstigator)
 {
 	bool res = false;
 
-	if (Pawn->IsDBNO())
-	{
+	if (Pawn->IsDBNO()) {
 		if (EventInstigator)
 		{
 			// idk what this does but this is my interpretation

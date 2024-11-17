@@ -341,7 +341,7 @@ static inline void StaticUI()
 		}
 	}
 
-	// ImGui::InputInt("Amount of bots to spawn", &AmountOfBotsToSpawn);
+	ImGui::InputInt("Amount of bots to spawn", &AmountOfBotsToSpawn);
 
 	ImGui::Checkbox("Infinite Ammo", &Globals::bInfiniteAmmo);
 	ImGui::Checkbox("Infinite Materials", &Globals::bInfiniteMaterials);
@@ -350,8 +350,7 @@ static inline void StaticUI()
 
 	ImGui::Checkbox("No MCP (Don't change unless you know what this is)", &Globals::bNoMCP);
 
-	if (Addresses::ApplyGadgetData && Addresses::RemoveGadgetData && Engine_Version < 424)
-	{
+	if (Addresses::ApplyGadgetData && Addresses::RemoveGadgetData && Engine_Version < 424) {
 		ImGui::Checkbox("Enable AGIDs (Don't change unless you know what this is)", &Globals::bEnableAGIDs);
 	}
 }
@@ -747,6 +746,10 @@ static inline void MainUI()
 
 					UKismetSystemLibrary::ExecuteConsoleCommand(GetWorld(), cmd, nullptr);
 				}
+
+				static std::string Playlist;
+
+				ImGui::Text("Server Playlist: ", &Playlist);
 
 				/* if (ImGui::Button("Spawn BGAs"))
 				{
@@ -1438,8 +1441,7 @@ static inline void PregameUI()
 
 	ImGui::SliderInt("Players required to start the match", &WarmupRequiredPlayerCount, 1, 100);
 		
-	if (!Globals::bCreative)
-		ImGui::InputText("Playlist", &PlaylistName);
+	if (!Globals::bCreative) ImGui::InputText("Playlist", &PlaylistName);
 }
 
 static inline HICON LoadIconFromMemory(const char* bytes, int bytes_size, const wchar_t* IconName) {

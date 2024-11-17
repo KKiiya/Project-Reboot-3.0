@@ -4,8 +4,7 @@
 #include "FortWeapon.h"
 #include "FortDecoItemDefinition.h"
 
-class AFortPawn : public APawn
-{
+class AFortPawn : public APawn {
 public:
 	static inline void (*NetMulticast_Athena_BatchedDamageCuesOriginal)(UObject* Context, FFrame* Stack, void* Ret);
 	static inline void (*MovingEmoteStoppedOriginal)(UObject* Context, FFrame* Stack, void* Ret);
@@ -13,30 +12,26 @@ public:
 	AFortWeapon* EquipWeaponDefinition(UFortWeaponItemDefinition* WeaponData, const FGuid& ItemEntryGuid);
 	bool PickUpActor(AActor* PickupTarget, UFortDecoItemDefinition* PlacementDecoItemDefinition);
 
-	AFortWeapon*& GetCurrentWeapon()
-	{
+	AFortWeapon*& GetCurrentWeapon() {
 		static auto CurrentWeaponOffset = GetOffset("CurrentWeapon");
 		return Get<AFortWeapon*>(CurrentWeaponOffset);
 	}
 
-	bool IsDBNO()
-	{
+	bool IsDBNO() {
 		static auto bIsDBNOFieldMask = GetFieldMask(GetProperty("bIsDBNO"));
 		static auto bIsDBNOOffset = GetOffset("bIsDBNO");
 
 		return ReadBitfieldValue(bIsDBNOOffset, bIsDBNOFieldMask);
 	}
 
-	void SetDBNO(bool IsDBNO)
-	{
+	void SetDBNO(bool IsDBNO) {
 		static auto bIsDBNOFieldMask = GetFieldMask(GetProperty("bIsDBNO"));
 		static auto bIsDBNOOffset = GetOffset("bIsDBNO");
 
 		this->SetBitfieldValue(bIsDBNOOffset, bIsDBNOFieldMask, IsDBNO);
 	}
 
-	void SetHasPlayedDying(bool NewValue)
-	{
+	void SetHasPlayedDying(bool NewValue) {
 		static auto bPlayedDyingFieldMask = GetFieldMask(GetProperty("bPlayedDying"));
 		static auto bPlayedDyingOffset = GetOffset("bPlayedDying");
 

@@ -2,7 +2,7 @@
 
 #include "Controller.h"
 
-class AAIController : public AController
-{
-public:
+class AAIController : public AController {
+	public:
+
 };

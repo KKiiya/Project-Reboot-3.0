@@ -126,10 +126,7 @@ bool CanCreateInCurrentContextHook(UObject* Template)
 {
     auto originalRet = CanCreateInCurrentContextOriginal(Template);
 
-    if (!originalRet)
-    {
-        LOG_INFO(LogDev, "CanCreateInCurrentContextHook false but returning true for {}!", Template->IsValidLowLevel() ? Template->GetPathName() : "BadRead");
-    }
+    if (!originalRet) LOG_INFO(LogDev, "CanCreateInCurrentContextHook false but returning true for {}!", Template->IsValidLowLevel() ? Template->GetPathName() : "BadRead");
 
     return true;
 }
@@ -1649,30 +1646,19 @@ DWORD WINAPI Main(LPVOID)
 
     LOG_INFO(LogHook, "Finished initialization!");
 
-    if (false)
-    {
-        while (true)
-        {
-            Sleep(10000);
-        }
-    }
-    else
-    {
-        Sleep(-1);
-    }
+    if (false) while (true) Sleep(10000);
+    else Sleep(-1);
 
     return 0;
 }
 
-BOOL APIENTRY DllMain(HMODULE hModule, DWORD reason, LPVOID lpReserved)
-{
-    switch (reason)
-    {
-    case DLL_PROCESS_ATTACH:
-        CreateThread(0, 0, Main, 0, 0, 0);
-        break;
-    case DLL_PROCESS_DETACH:
-        break;
+BOOL APIENTRY DllMain(HMODULE hModule, DWORD reason, LPVOID lpReserved) {
+    switch (reason) {
+        case DLL_PROCESS_ATTACH:
+            CreateThread(0, 0, Main, 0, 0, 0);
+            break;
+        case DLL_PROCESS_DETACH:
+            break;
     }
 
     return TRUE;

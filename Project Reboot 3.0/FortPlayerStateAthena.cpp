@@ -33,8 +33,7 @@ void AFortPlayerStateAthena::ServerSetInAircraftHook(UObject* Context, FFrame& S
 	{
 		static auto CurrentShieldOffset = PlayerState->GetOffset("CurrentShield");
 
-		if (CurrentShieldOffset != -1)
-			PlayerState->Get<float>(CurrentShieldOffset) = 0; // real
+		if (CurrentShieldOffset != -1) PlayerState->Get<float>(CurrentShieldOffset) = 0; // real
 	}
 
 	return ServerSetInAircraftOriginal(Context, Stack, Ret);

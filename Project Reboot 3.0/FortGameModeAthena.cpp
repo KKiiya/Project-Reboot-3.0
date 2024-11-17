@@ -64,8 +64,7 @@ static UFortPlaylistAthena* GetPlaylistToUse()
 
 	// SET OVERRIDE PLAYLIST DOWN HERE
 
-	if (Globals::bCreative)
-		Playlist = FindObject<UFortPlaylistAthena>(L"/Game/Athena/Playlists/Creative/Playlist_PlaygroundV2.Playlist_PlaygroundV2");
+	if (Globals::bCreative) Playlist = FindObject<UFortPlaylistAthena>(L"/Game/Athena/Playlists/Creative/Playlist_PlaygroundV2.Playlist_PlaygroundV2");
 
 	// Playlist = FindObject<UFortPlaylistAthena>(L"/Game/Athena/Playlists/Respawn/Variants/Respawn_Vamp/Playlist_Respawn_Vamp_Solo.Playlist_Respawn_Vamp_Solo");
 
@@ -107,22 +106,19 @@ FName AFortGameModeAthena::RedirectLootTier(const FName& LootTier)
 
 	auto& RedirectAthenaLootTierGroups = Get<TMap<FName, FName>>(RedirectAthenaLootTierGroupsOffset);
 
-	for (auto& Pair : RedirectAthenaLootTierGroups)
-	{
+	for (auto& Pair : RedirectAthenaLootTierGroups) {
 		auto& Key = Pair.Key();
 		auto& Value = Pair.Value();
 
 		// LOG_INFO(LogDev, "[{}] {} {}", i, Key.ComparisonIndex.Value ? Key.ToString() : "NULL", Key.ComparisonIndex.Value ? Value.ToString() : "NULL");
 
-		if (Key == LootTier)
-			return Value;
+		if (Key == LootTier) return Value;
 	}
 
 	return LootTier;
 }
 
-UClass* AFortGameModeAthena::GetVehicleClassOverride(UClass* DefaultClass)
-{
+UClass* AFortGameModeAthena::GetVehicleClassOverride(UClass* DefaultClass) {
 	static auto GetVehicleClassOverrideFn = FindObject<UFunction>(L"/Script/FortniteGame.FortGameModeAthena.GetVehicleClassOverride");
 
 	if (!GetVehicleClassOverrideFn)
@@ -135,8 +131,7 @@ UClass* AFortGameModeAthena::GetVehicleClassOverride(UClass* DefaultClass)
 	return GetVehicleClassOverride_Params.ReturnValue;
 }
 
-void AFortGameModeAthena::SkipAircraft()
-{
+void AFortGameModeAthena::SkipAircraft() {
 	// reversed from 10.40
 
 	auto GameState = GetGameStateAthena();
@@ -150,17 +145,14 @@ void AFortGameModeAthena::SkipAircraft()
 
 	static auto AircraftsOffset = GameState->GetOffset("Aircrafts", false);
 
-	if (AircraftsOffset == -1)
-	{
+	if (AircraftsOffset == -1) {
 		static auto AircraftOffset = GameState->GetOffset("Aircraft");
 		this->ProcessEvent(OnAircraftExitedDropZoneFn, &GameState->Get<AActor*>(AircraftOffset));
 	}
-	else
-	{
+	else {
 		auto Aircrafts = GameState->GetPtr<TArray<AActor*>>(AircraftsOffset);
 
-		for (int i = 0; i < Aircrafts->Num(); i++)
-		{
+		for (int i = 0; i < Aircrafts->Num(); i++) {
 			this->ProcessEvent(OnAircraftExitedDropZoneFn, &Aircrafts->at(i));
 		}
 	}

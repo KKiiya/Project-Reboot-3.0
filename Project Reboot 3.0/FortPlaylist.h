@@ -10,24 +10,20 @@
 #include "FortPlayerPawnAthena.h"
 #include "GameplayAbilityTypes.h"
 
-struct FGameplayTagRequirements
-{
+struct FGameplayTagRequirements {
 	FGameplayTagContainer                       RequireTags;                                              // 0x0000(0x0020) (Edit, BlueprintVisible, NativeAccessSpecifierPublic)
 	FGameplayTagContainer                       IgnoreTags;                                               // 0x0020(0x0020) (Edit, BlueprintVisible, NativeAccessSpecifierPublic)
 };
 
-enum class EFortDeliveryInfoBuildingActorSpecification : uint8_t
-{
+enum class EFortDeliveryInfoBuildingActorSpecification : uint8_t {
 	All = 0,
 	PlayerBuildable = 1,
 	NonPlayerBuildable = 2,
 	EFortDeliveryInfoBuildingActorSpecification_MAX = 3
 };
 
-struct FFortDeliveryInfoRequirementsFilter
-{
-	bool ShouldApplyToPawns()
-	{
+struct FFortDeliveryInfoRequirementsFilter {
+	bool ShouldApplyToPawns() {
 		static auto bApplyToPlayerPawnsOffset = FindOffsetStruct("/Script/FortniteGame.FortDeliveryInfoRequirementsFilter", "bApplyToPlayerPawns");
 		static auto bApplyToPlayerPawnsFieldMask = GetFieldMask(FindPropertyStruct("/Script/FortniteGame.FortDeliveryInfoRequirementsFilter", "bApplyToPlayerPawns"));
 		return ReadBitfield((PlaceholderBitfield*)(__int64(this) + bApplyToPlayerPawnsOffset), bApplyToPlayerPawnsFieldMask);
